@@ -12,14 +12,26 @@ public:
     int rob(vector<int>& nums) {
     //----------Tabulation-------------
         int n=nums.size();
-        vector<int>dp(n,-1);
-        dp[0]=nums[0];
+        // vector<int>dp(n,-1);
+        // dp[0]=nums[0];
+        // for(int i=1;i<n;i++){
+        //     int pick = nums[i];
+        //     if(i>1) pick+=dp[i-2];
+        //     int Not_pick = 0 + dp[i-1];
+        //     dp[i]=max(pick,Not_pick);
+        // }  
+        // return dp[n-1];
+//-------------SPACE OPTIMIZATION---------------
+        int prev=nums[0];
+        int prev2=0;
         for(int i=1;i<n;i++){
             int pick = nums[i];
-            if(i>1) pick+=dp[i-2];
-            int Not_pick = 0 + dp[i-1];
-            dp[i]=max(pick,Not_pick);
+            if(i>1) pick+=prev2;
+            int Not_pick = 0 + prev;
+            int curr=max(pick,Not_pick);
+            prev2=prev;
+            prev=curr;
         }  
-        return dp[n-1];
+        return prev;
     }
 };
